@@ -1,0 +1,19 @@
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+int main()
+{
+  const double pi = 3.14, g = 9.8;
+  double a = 50, l = 0.994, t1=0, t2=0, t3=0, Koef=0;
+  Koef = l / g; // Замена повторяющейся операции
+  double pi2 = pi * 2;
+
+  t1 = (pi2) * sqrt(Koef);
+  t2 = (pi2) * sqrt(Koef * (1 + (0.0625 * pow(sin(a) , 2))));
+  t3 = (pi2) * sqrt(Koef * (1 + (0.25 * pow(sin(a / 2), 2)) + (0.140625 * pow( sin(a / 2), 4))));
+  
+  cout << fixed;
+  cout.precision(6);
+  cout << "t1 = " << t1 << " \nt2 = " << t2 << " \nt3 = " << t3;
+}
