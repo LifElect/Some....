@@ -1,12 +1,18 @@
+/****************************************
+* Амельчев Илья
+* 26.09.2023
+* https://onlinegdb.com/gOm4Bbxms
+*****************************************/
+
 #include <iostream>
 #include <math.h>
 using namespace std;
 
 int main(){
   const double pi = 3.14, g = 9.8;
-  double a = 50, l = 0.994, t1=0, t2=0, t3=0, glKoef=0;
+  double a = 50, l = 0.994, t1=0, t2=0, t3=0, glKoef=0, pi2 = 0;
+
   glKoef = l / g; // Замена повторяющейся операции
-  double pi2 = 0; 
   pi2 = pi * 2;
 
   t1 = pi2 * sqrt(glKoef);
