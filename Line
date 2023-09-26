@@ -4,14 +4,14 @@ using namespace std;
 
 int main(){
   const double pi = 3.14, g = 9.8;
-  double a = 50, l = 0.994, t1=0, t2=0, t3=0, Koef=0;
+  double a = 50, l = 0.994, t1=0, t2=0, t3=0, glKoef=0;
   glKoef = l / g; // Замена повторяющейся операции
   double pi2 = 0; 
   pi2 = pi * 2;
 
-  t1 = pi2 * sqrt(Koef);
-  t2 = pi2 * sqrt(Koef * (1 + (0.0625 * pow(sin(a), 2))));
-  t3 = pi2 * sqrt(Koef * (1 + (0.25 * pow(sin(a / 2), 2)) + (0.140625 * pow( sin(a / 2), 4))));
+  t1 = pi2 * sqrt(glKoef);
+  t2 = pi2 * sqrt(glKoef * (1 + (0.0625 * pow(sin(a), 2))));
+  t3 = pi2 * sqrt(glKoef * (1 + (0.25 * pow(sin(a / 2), 2)) + (0.140625 * pow( sin(a / 2), 4))));
   
   cout << fixed;
   cout.precision(6);
