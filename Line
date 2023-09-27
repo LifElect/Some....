@@ -1,25 +1,31 @@
 /****************************************
 * Амельчев Илья
 * 26.09.2023
-* https://onlinegdb.com/gOm4Bbxms
+* https://onlinegdb.com/fDuDl9tyS
 *****************************************/
 
 #include <iostream>
 #include <math.h>
+#include <iomanip>
 using namespace std;
 
 int main(){
   const double pi = 3.14, g = 9.8;
-  double a = 50, l = 0.994, t1=0, t2=0, t3=0, glKoef=0, pi2 = 0;
+  double a, l, t1, t2, t3, glKoef, pi2;
 
-  glKoef = l / g; // Замена повторяющейся операции
+  cout << "Введите угол (в градусах): ";
+  cin >> a;
+  cout << "Введите длину маятника: ";
+  cin >> l;
+    
+  // Замена повторяющейся операции
+  glKoef = l / g; 
   pi2 = pi * 2;
 
+  // Вычисление периодов по трем формулам
   t1 = pi2 * sqrt(glKoef);
-  t2 = pi2 * sqrt(glKoef * (1 + (0.0625 * pow(sin(a), 2))));
-  t3 = pi2 * sqrt(glKoef * (1 + (0.25 * pow(sin(a / 2), 2)) + (0.140625 * pow( sin(a / 2), 4))));
+  t2 = pi2 * sqrt(glKoef * (1 + (0.0625 * pow(sin(a), 2) ) ) );
+  t3 = pi2 * sqrt(glKoef * (1 + (0.25 * pow(sin(a / 2), 2) ) + (0.140625 * pow( sin(a / 2), 4) ) ) );
   
-  cout << fixed;
-  cout.precision(6);
-  cout << "t1 = " << t1 << " \nt2 = " << t2 << " \nt3 = " << t3;
+  cout << setprecision(6) << fixed << "t1 = " << t1 << " \nt2 = " << t2 << " \nt3 = " << t3;
 }
