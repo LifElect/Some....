@@ -1,12 +1,13 @@
 /****************************************
-* Амельчев Илья
-* 26.09.2023
-* https://onlinegdb.com/fDuDl9tyS
+* Амельчев Илья                         *
+* 26.09.2023                            *
+* https://onlinegdb.com/fDuDl9tyS       *
 *****************************************/
 
 #include <iostream>
 #include <math.h>
 #include <iomanip>
+
 using namespace std;
 
 int main(){
