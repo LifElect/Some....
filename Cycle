@@ -1,12 +1,13 @@
-/****************************************
-* Амельчев Илья
-* 26.09.2023
-* https://replit.com/@amelchev2002/For-Burmin#main.cpp
-*****************************************/
+/*******************************************************
+* Амельчев Илья                                        *
+* 26.09.2023                                           *
+* https://replit.com/@amelchev2002/For-Burmin#main.cpp *
+********************************************************/
 
 #include <iostream>
 #include <math.h>
 #include <iomanip>
+
 using namespace std;
 
 int main() {
