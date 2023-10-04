@@ -29,4 +29,5 @@ int main(){
   t3 = pi2 * sqrt(glKoef * (1 + (0.25 * pow(sin(a / 2), 2) ) + (0.140625 * pow( sin(a / 2), 4) ) ) );
   
   cout << setprecision(6) << fixed << "t1 = " << t1 << " \nt2 = " << t2 << " \nt3 = " << t3;
+return 0;
 }
