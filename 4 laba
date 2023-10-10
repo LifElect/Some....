@@ -1,0 +1,53 @@
+/*******************************************************
+* Амельчев Илья                                        *
+* 26.09.2023                                           *
+* https://replit.com/@amelchev2002/Some#main.cpp       *
+********************************************************/
+
+#include <iostream>
+#include <math.h>
+#include <iomanip>
+
+using namespace std;
+
+int main(){
+
+  cout.precision(2);
+  cout << fixed;
+
+  int size;
+  double Re = 20000, DelT, Sg, Nu, d, S1;
+
+  cout << "Введите поперечный шаг: ";
+  cin >> S1;
+  cout << "Введите диаметр: ";
+  cin >> d;
+  cout << "Сколько продольных шагов? Введите: ";
+  cin >> size;
+
+  double S2[size];
+  
+  for(int i = 0; i < size; ++i){
+    cout << "Введите " << i + 1 << " шаг: ";
+    cin >> S2[i];
+  }
+
+  for(int i = 0; i < size; ++i){
+    
+    Sg = d * sqrt( (0.25 * ( pow( (S1 / d), 2) ) + pow( (S2[i] / d), 2) ) );
+    DelT = (S1 - d) / (Sg - d);
+    
+    if(DelT < 0.7){
+      
+      cout << "\n Nu= " << 0.27 * pow(Re, 0.6) * DelT;
+      cout << "\t ▲=" << DelT;
+      
+    } else{
+      
+        cout << "\n Nu= " << 0.295 * pow(Re, 0.6) * pow(DelT, 0.25);
+        cout << "\t ▲=" << DelT;
+      
+      }
+  }
+return 0;
+}
