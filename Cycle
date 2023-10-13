@@ -1,8 +1,8 @@
-/*******************************************************
-* Амельчев Илья                                        *
-* 26.09.2023                                           *
-* https://replit.com/@amelchev2002/For-Burmin#main.cpp *
-********************************************************/
+/**********************************
+* Амельчев Илья                   *
+* 26.09.2023                      *
+* https://onlinegdb.com/ZF6k9DevW *
+***********************************/
 
 #include <iostream>
 #include <math.h>
@@ -10,29 +10,37 @@
 
 using namespace std;
 
+void Calculate(double mC, double kC, double gC, double tC){
+  double frstUmn, scndUmn, rezUmn;
+  
+  frstUmn = sqrt( (gC * mC) / kC);
+  scndUmn = tanh(tC * (sqrt( (gC * kC) / mC) ) );
+  rezUmn = frstUmn * scndUmn;
+  
+  cout << setprecision(3) << "v= " << rezUmn << "\t"; 
+  cout << setprecision(2) << fixed << "t= " << tC << endl;
+  
+}
+
 int main() {
   // Данные в задаче переменные
-  double m, k = 8, g = 9.8; 
-  // переменные для произвдения
-  double frstUmn, scndUmn; 
+  double m, k = 8, g = 9.8, t; 
   // ввод массы прыгуна 
   cout << "Введите массу прыгуна: ";
   cin >> m;
-  
-  for(double t = 0; t <=5; ){
-    
-    frstUmn = sqrt( (g * m) / k);
-    scndUmn = tanh(t * (sqrt( (g * k) / m) ) );
-    
-    cout << setprecision(3) << "v= " << frstUmn * scndUmn << "\t"; 
-    cout << setprecision(2) << fixed << "t= " << t << endl;
 
-    //условие для разного прибавления времени
-    if(t < 1) {
-      t += 0.25;
-    } else {
-        ++t;  
+    do{
+      
+    Calculate(m, k, g, t);
+    t+=0.25;
+    
+    } while(t < 1);
+    
+    while(t <= 5){
+    Calculate(m, k, g, t);
+    ++t;
+
     }
-  }
+  
 return 0;
 }
