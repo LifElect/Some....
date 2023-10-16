@@ -1,0 +1,45 @@
+/****************************************
+* Амельчев Илья                         *
+* 26.09.2023                            *
+* https://onlinegdb.com/xO4X9RiWN       *
+*****************************************/
+
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+using namespace std;
+
+int main()
+{
+  srand(time(NULL));
+  
+  int sizeArr = 5, polSum = 0, polCount;
+  int ishArr[sizeArr][sizeArr];
+  
+  for(int i = 0; i < sizeArr; ++i){
+    for(int j = 0; j < sizeArr; ++j){
+      ishArr[i][j] = rand()%100-rand()%100;
+    }
+  }
+  
+  for(int i = 0; i < sizeArr; ++i){
+    for(int j = 0; j < sizeArr; ++j){
+      cout << ishArr[i][j] << " | ";
+    }
+    cout << endl << endl;
+  }
+  
+  for(int i = 0; i < sizeArr; ++i){
+    for(int j = 0; j < sizeArr; ++j){
+      if(ishArr[j][i] > 0){
+        ++polCount;
+        polSum += ishArr[j][i];
+      }
+    }
+    cout << polCount << " - чисел "<< polSum << " - cумма положительных в " << i + 1 << " столбце" << endl;
+    polCount = 0;
+    polSum = 0;
+  }
+    return 0;
+}
