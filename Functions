@@ -1,0 +1,51 @@
+/**********************************************************************
+* Амельчев Илья                                                       *
+* 18.10.2023                                                          *
+* https://replit.com/@amelchev2002/ExternalUnnaturalOpenlook#main.cpp *
+***********************************************************************/
+#include <iostream>
+#include <time.h>
+#include <stdlib.h>
+
+using namespace std;
+
+int AbsSum(int arr[], int size){
+  int sum = 0;
+  for(int i = 0; i < size; ++i){
+    arr[i] = rand() % 100 - rand() % 100;
+  }
+
+  for(int i = 0; i < size; ++i){
+    sum += abs(arr[i]);
+    // cout << abs(arr[i]) << " ";
+    //при желании посчитать правильность просто раскоментить срочку выше.
+  }
+  return sum;
+}
+
+int main()
+{
+  srand(time(NULL));
+  int k, n, m;
+  k = 1 + rand() % 10;
+  n = 1 + rand() % 10;
+  m = 1 + rand() % 10;
+  int xArr[k], yArr[n], zArr[m];
+
+  cout << "Сумма модулей элементов массива X: " << AbsSum(xArr, k) << endl;
+  cout << "Сумма модулей элементов массива Y: " << AbsSum(yArr, n) << endl;
+  cout << "Сумма модулей элементов массива Z: " << AbsSum(zArr, m) << endl;
+
+  return 0;
+}
+
+/*
+к первому циклу в функции AbsSum
+cout << "Введите размер матрицы: ";
+cin >> sizeArr;
+for (int i = 0; i < sizeArr; ++i) {
+    cout << "Введите " << i + 1 << " элемент массива: ";
+    cin >> ishArr[i][j];
+}
+для универсальности кода ввод вручную, но мне лень каждый раз вводить 3 миллиона символов, поэтому рандомные.
+*/
