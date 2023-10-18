@@ -16,23 +16,35 @@ int main()
   
   int sizeArr = 5, polSum = 0, polCount;
   int ishArr[sizeArr][sizeArr];
-  
-  for(int i = 0; i < sizeArr; ++i){
-    for(int j = 0; j < sizeArr; ++j){
+
+/*
+cout << "Введите размер матрицы: ";
+cin >> sizeArr;
+for (int i = 0; i < sizeArr; ++i) {
+  for (int j=0; j < sizeArr; ++j) {
+    cout << "Введите " << i + 1 << " элемент массива: ";
+    cin >> ishArr[i][j];
+  }
+}
+для универсальности кода ввод вручную, но мне лень каждый раз вводить 3 миллиона символов, поэтому рандомные.
+*/
+
+  for(int i = 0; i < sizeArr; ++i) {
+    for(int j = 0; j < sizeArr; ++j) {
       ishArr[i][j] = rand()%100-rand()%100;
     }
   }
   
-  for(int i = 0; i < sizeArr; ++i){
-    for(int j = 0; j < sizeArr; ++j){
+  for(int i = 0; i < sizeArr; ++i) {
+    for(int j = 0; j < sizeArr; ++j) {
       cout << ishArr[i][j] << " | ";
     }
     cout << endl << endl;
   }
   
-  for(int i = 0; i < sizeArr; ++i){
-    for(int j = 0; j < sizeArr; ++j){
-      if(ishArr[j][i] > 0){
+  for(int i = 0; i < sizeArr; ++i) {
+    for(int j = 0; j < sizeArr; ++j) {
+      if(ishArr[j][i] > 0) {
         ++polCount;
         polSum += ishArr[j][i];
       }
