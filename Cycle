@@ -29,17 +29,14 @@ int main() {
   cout << "Введите массу прыгуна: ";
   cin >> m;
 
-    do {
-      
-    Calculate(m, k, g, t);
-    t += 0.25;
-    
+    do {   
+      Calculate(m, k, g, t);
+      t += 0.25;
     } while(t < 1);
-    
-    while(t <= 5) {
-    Calculate(m, k, g, t);
-    ++t;
 
+    while(t <= 5) {
+      Calculate(m, k, g, t);
+      ++t;
     }
 return 0;
 }
