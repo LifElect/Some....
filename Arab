@@ -1,3 +1,15 @@
+/***********************************************
+*Амельчев Илья                                 *
+*19.11.2023                                    *
+*https://www.online-cpp.com/yO3DNpRWeJ         *
+************************************************/
+
+#include<iostream>
+#include<map>
+#include<string>
+
+using namespace std;
+
 string arabicToRoman(int num, map<int, string> &romanMap) {
   string result, res;
 
