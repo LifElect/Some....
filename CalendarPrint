@@ -35,7 +35,7 @@ void printCalendar(int year) {
     // Получение дня недели для 1 января данного года
     int firstDayOfWeek = 0;
     for (int tmpToFind = 1; tmpToFind < year; tmpToFind++) {
-        firstDayOfWeek = (firstDayOfWeek + (isLeapYear(i) ? 366 : 365)) % 7;
+        firstDayOfWeek = (firstDayOfWeek + (isLeapYear(tmpToFind) ? 366 : 365)) % 7;
     }
 
     // Вывод календаря
