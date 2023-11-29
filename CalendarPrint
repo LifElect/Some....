@@ -47,7 +47,7 @@ void printCalendar(int year) {
         std::cout << " Пн Вт Ср Чт Пт Сб Вс" << std::endl;
 
         // Выравнивание дней недели для первого дня месяца
-        for (int i = 0; i < firstDayOfWeek; i++) {
+        for (int indOfDay = 0; indOfDay < firstDayOfWeek; indOfDay++) {
             std::cout << std::setw(3) << " ";
         }
 
