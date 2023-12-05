@@ -1,0 +1,46 @@
+/***********************************************
+*Амельчев Илья                                 *
+*12.11.2023                                    *
+*https://replit.com/@amelchev2002/Text#main.cpp*
+************************************************/
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int countCharacter(const string& filename, char character) {
+    ifstream file(filename);
+    if (!file) {
+        cout << "Failed to open the file." << endl;
+        return -1;
+    }
+
+    int count = 0;
+    char c;
+    while (file.get(c)) {
+        if (c == character)
+            count++;
+    }
+
+    file.close();
+    return count;
+}
+
+int main() {
+    string filename;
+    cout << "Введи название файла: ";
+    cin >> filename;
+
+    char character;
+    cout << "Введи символ для поиска: ";
+    cin >> character;
+
+    int count = countCharacter(filename, character);
+    if (count >= 0) {
+        cout << "Символ '" << character
+                  << "' Встречается " << count << " раз." << endl;
+    }
+
+    return 0;
+}
