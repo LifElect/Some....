@@ -27,14 +27,14 @@ int main(){
 
   double S2[size];
   
-  for(int i = 0; i < size; ++i){
-    cout << "Введите " << i + 1 << " шаг: ";
-    cin >> S2[i];
+  for(int numOfStep = 0; numOfStep < size; ++numOfStep){
+    cout << "Введите " << numOfStep + 1 << " шаг: ";
+    cin >> S2[numOfStep];
   }
 
-  for(int i = 0; i < size; ++i){
+  for(int numOfStep = 0; numOfStep < size; ++numOfStep){
     
-    Sg = d * sqrt( (0.25 * ( pow( (S1 / d), 2) ) + pow( (S2[i] / d), 2) ) );
+    Sg = d * sqrt( (0.25 * ( pow( (S1 / d), 2) ) + pow( (S2[numOfStep] / d), 2) ) );
     DelT = (S1 - d) / (Sg - d);
     
     if(DelT < 0.7){
