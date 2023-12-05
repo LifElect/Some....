@@ -1,0 +1,57 @@
+/****************************************
+* Амельчев Илья                         *
+* 26.09.2023                            *
+* https://onlinegdb.com/mTT9qHGPu       *
+*****************************************/
+
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+using namespace std;
+
+int main()
+{
+  srand(time(NULL));
+  
+  int sizeArr = 5, polSum = 0, polCount = 0, colNum, rowNum;
+  int ishArr[sizeArr][sizeArr];
+
+  for(rowNum = 0; rowNum < sizeArr; ++rowNum) {
+    for(colNum = 0; colNum < sizeArr; ++colNum) {
+      ishArr[rowNum][colNum] = rand()%100-rand()%100;
+    }
+  }
+  
+  for(rowNum = 0; rowNum < sizeArr; ++rowNum) {
+    for(colNum = 0; colNum < sizeArr; ++colNum) {
+      cout << ishArr[rowNum][colNum] << " | ";
+    }
+    cout << endl << endl;
+  }
+  
+  for(int rowNum = 0; rowNum < sizeArr; ++rowNum) {
+    for(colNum = 0; colNum < sizeArr; ++colNum) {
+      if(ishArr[colNum][rowNum] > 0) {
+        ++polCount;
+        polSum += ishArr[colNum][rowNum];
+      }
+    }
+    cout << polCount << " - чисел "<< polSum << " - cумма положительных в " << rowNum + 1 << " столбце" << endl;
+    polCount = 0;
+    polSum = 0;
+  }
+    return 0;
+}
+
+/*
+cout << "Введите размер матрицы: ";
+cin >> sizeArr;
+for (rowNum = 0; rowNum < sizeArr; ++rowNum) {
+  for (int colNum = 0; colNum < sizeArr; ++colNum) {
+    cout << "Введите " << colNum + 1 << " элемент массива: ";
+    cin >> ishArr[rowNum][colNum];
+  }
+}
+для универсальности кода ввод вручную, но мне лень каждый раз вводить 3 миллиона символов, поэтому рандомные.
+*/
