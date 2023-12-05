@@ -1,0 +1,104 @@
+/***********************************************************************
+* Амельчев Илья ПИ-231                                                 *
+* 31.10.2023                                                           *
+* https://replit.com/@amelchev2002/ExternalUnnaturalOpenlook#main.cpp  *
+* Файл приложен внутри компилятора.                                    *
+************************************************************************/
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <vector>
+
+using namespace std;
+
+
+struct Product {
+  string name;
+  string country;
+  string supplier;
+  int deliveryTime;
+  int quantity;
+};
+
+// Функция для загрузки данных из файла
+vector<Product> loadProducts(const string& filename) {
+  vector<Product> products;
+  ifstream file(filename);
+
+  if (file.is_open()) {
+    string line;
+      while (getline(file, line)) {
+        stringstream ss(line);
+        string name, country, supplier;
+        int deliveryTime, quantity;
+        ss >> name >> country >> supplier >> deliveryTime >> quantity;
+        // Создаем объект Product и добавляем его в вектор products
+        Product product { name, country, supplier, deliveryTime, quantity };
+        products.push_back(product);
+      }
+    file.close();
+    }
+    else {
+      cout << "Ошибка при открытии файла" << endl;
+    }
+    return products;
+}
+
+// Функция для поиска информации о товаре по его названию
+void findProductInfo(const vector<Product>& products, const string& productName) {
+  string productCountry;
+  string productSupplier;
+  int totalDeliveryTime = 0;
+  int totalQuantity = 0;
+  int maxQuantity = 0;
+  string maxSupplier;
+
+  int count = 0;
+
+  for (const auto& product : products) {
+    if (product.name == productName) {
+      if (count == 0) {
+        productCountry = product.country;
+        productSupplier = product.supplier;
+      }
+      totalDeliveryTime += product.deliveryTime;
+      totalQuantity += product.quantity;
+
+      if (product.quantity > maxQuantity) {
+        maxQuantity = product.quantity;
+        maxSupplier = product.supplier;
+      }
+      count++;
+    }
+  }
+
+    if (count > 0) {
+      double averageDeliveryTime = static_cast<double>(totalDeliveryTime) / count;
+
+      cout << "Страна: " << productCountry << endl;
+      cout << "Фирма-поставщик: " << productSupplier << endl;
+      cout << "Средний срок доставки: " << averageDeliveryTime << " дней" << endl;
+      cout << "Общий объем поставок: " << totalQuantity << endl;
+      cout << "Фирма-поставщик с наибольшим объемом партии: " << maxSupplier << endl;
+    }
+    else {
+      cout << "Товар не найден" << endl;
+    }
+}
+
+int main() {
+  setlocale(LC_ALL, "ru_RU.utf8");
+
+  string filename = "products.txt"; // имя файла с данными
+
+  vector<Product> products = loadProducts(filename);
+  string productName;
+  cout << "Введите название товара: ";
+  getline(cin, productName);
+
+  findProductInfo(products, productName);
+
+  return 0;
+}
