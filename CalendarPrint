@@ -1,0 +1,80 @@
+/***********************************************
+*Амельчев Илья                                 *
+*26.11.2023                                    *
+*https://replit.com/@amelchev2002/Text         *
+************************************************/
+#include <iostream>
+#include <iomanip>
+
+// Функция для определения високосного года
+bool isLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
+
+// Функция для определения количества дней в месяце
+int getDaysInMonth(int month, int year) {
+    if (month == 2) {
+        return isLeapYear(year) ? 29 : 28;
+    } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        return 30;
+    } else {
+        return 31;
+    }
+}
+
+// Функция для вывода календаря заданного года
+void printCalendar(int year) {
+    std::cout << "Календарь для " << year << " года:" << std::endl << std::endl;
+
+    // Массив с названиями месяцев
+    std::string months[] = {
+        "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+        "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+    };
+
+    // Получение дня недели для 1 января данного года
+    int firstDayOfWeek = 0;
+    for (int tmpToFind = 1; tmpToFind < year; tmpToFind++) {
+        firstDayOfWeek = (firstDayOfWeek + (isLeapYear(tmpToFind) ? 366 : 365)) % 7;
+    }
+
+    // Вывод календаря
+    for (int month = 1; month <= 12; month++) {
+        // Вывод названия месяца
+        std::cout << "\t" << months[month - 1] << " " << std::endl;
+
+        // Вывод дней недели
+        std::cout << " Пн Вт Ср Чт Пт Сб Вс" << std::endl;
+
+        // Выравнивание дней недели для первого дня месяца
+        for (int indOfDay = 0; indOfDay < firstDayOfWeek; indOfDay++) {
+            std::cout << std::setw(3) << " ";
+        }
+
+        // Вывод дней месяца
+        int daysInMonth = getDaysInMonth(month, year);
+        for (int day = 1; day <= daysInMonth; day++) {
+            std::cout << std::setw(3) << day;
+
+            // Переход на новую строку после вывода последнего дня недели
+            if ((firstDayOfWeek + day) % 7 == 0) {
+                std::cout << std::endl;
+            }
+        }
+
+        // Установка значения первого дня следующего месяца
+        firstDayOfWeek = (firstDayOfWeek + daysInMonth) % 7;
+
+        std::cout << std::endl << std::endl;
+    }
+}
+
+int main() {
+    int year;  // Заданный год
+    std::cout << "Введите год: ";
+    std::cin >> year;
+
+    printCalendar(year);
+
+    return 0;
+}
