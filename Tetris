@@ -104,12 +104,12 @@ PlayingField::PlayingField(int fieldWidth, int fieldHeight)
 
 bool PlayingField::doesPieceFit(Tetromino* tetromino, int rotation, int x, int y)
 {
-    for (int px = 0; px < 4; px++)
-        for (int py = 0; py < 4; py++) {
-            int pi = tetromino->rotate(px, py);
-            int fi = (y + py) * fieldWidth + (x + px);
-            if (x + px >= 0 && x + px < fieldWidth)
-                if (y + py >= 0 && y + py < fieldHeight)
+    for (int pointX = 0; pointX < 4; pointX++)
+        for (int pointY = 0; pointY < 4; ++pointY) {
+            int pi = tetromino->rotate(pointX, pointY);
+            int fi = (y + pointY) * fieldWidth + (x + pointX);
+            if (x + pointX >= 0 && x + pointX < fieldWidth)
+                if (y + pointY >= 0 && y + pointY < fieldHeight)
                     // if cell value != 0, it's occupied
                     if (tetromino->layout[pi] == L'X' && pField[fi] != 0)
                         return false;
@@ -195,8 +195,8 @@ void Tetris::processInput()
     // x27 = right arrow key
     // x25 = left arrow key
     // x28 = down arrow key
-    for (int k = 0; k < 4; k++)
-        key[k] = (0x8000 & GetAsyncKeyState((unsigned char)("\x27\x25\x28Z"[k]))) != 0;
+    for (int signKey = 0; signKey < 4; ++signKey)
+        key[signKey] = (0x8000 & GetAsyncKeyState((unsigned char)("\x27\x25\x28Z"[signKey]))) != 0;
 
     // Handling input
     Tetromino* currentTetromino = tetromino[currentPiece];
@@ -251,27 +251,27 @@ void Tetris::computeNextState()
 void Tetris::lockPieceOnField()
 {
     Tetromino* currentTetromino = tetromino[currentPiece];
-    for (int px = 0; px < 4; px++)
-        for (int py = 0; py < 4; py++)
-            if (currentTetromino->layout[currentTetromino->rotate(px, py)] == L'X')
+    for (int pointX = 0; pointX < 4; pointX++)
+        for (int pointY = 0; pointY < 4; pointY++)
+            if (currentTetromino->layout[currentTetromino->rotate(pointX, pointY)] == L'X')
                 // nCurrentPiece + 1 because 0 means empty spots in the playing field
-                playingField->pField[(currentTetromino->y + py) * playingField->fieldWidth + (currentTetromino->x + px)] = currentPiece + 1;
+                playingField->pField[(currentTetromino->y + pointY) * playingField->fieldWidth + (currentTetromino->x + pointX)] = currentPiece + 1;
 }
 
 void Tetris::checkLines()
 {
     Tetromino* currentTetromino = tetromino[currentPiece];
-    for (int py = 0; py < 4; py++) {
-        if (currentTetromino->y + py < playingField->fieldHeight - 1) {
+    for (int pointY = 0; pointY < 4; ++pointY) {
+        if (currentTetromino->y + pointY < playingField->fieldHeight - 1) {
             bool bLine = true;
-            for (int px = 1; px < playingField->fieldWidth; px++)
+            for (int pointX = 1; pointX < playingField->fieldWidth; pointX++)
                 // if any cell is empty, line isn't complete
-                bLine &= (playingField->pField[(currentTetromino->y + py) * playingField->fieldWidth + px]) != 0;
+                bLine &= (playingField->pField[(currentTetromino->y + pointY) * playingField->fieldWidth + pointX]) != 0;
             if (bLine) {
                 // draw '=' symbols
-                for (int px = 1; px < playingField->fieldWidth - 1; px++)
-                    playingField->pField[(currentTetromino->y + py) * playingField->fieldWidth + px] = 8;
-                fullLines.push_back(currentTetromino->y + py);
+                for (int pointX = 1; pointX < playingField->fieldWidth - 1; pointX++)
+                    playingField->pField[(currentTetromino->y + pointY) * playingField->fieldWidth + pointX] = 8;
+                fullLines.push_back(currentTetromino->y + pointY);
                 lines++;
             }
         }
@@ -281,22 +281,22 @@ void Tetris::checkLines()
 void Tetris::draw()
 {
     // Draw playing field
-    for (int x = 0; x < playingField->fieldWidth; x++)
-        for (int y = 0; y < playingField->fieldHeight; y++)
+    for (int currentX = 0; currentX < playingField->fieldWidth; ++currentX)
+        for (int currentY = 0; currentY < playingField->fieldHeight; ++currentY)
             //mapping playing field (' ', 1,..., 9) to Screen characters (' ', A,...,#)
-            screenBuffer->screen[(y + YPADDING) * screenBuffer->screenWidth + (x + XPADDING)] = L" ABCDEFG=#"[playingField->pField[y * playingField->fieldWidth + x]];
+            screenBuffer->screen[(currentY + YPADDING) * screenBuffer->screenWidth + (currentX + XPADDING)] = L" ABCDEFG=#"[playingField->pField[currentY * playingField->fieldWidth + currentX]];
 
     // Draw pieces
-    for (int px = 0; px < 4; px++)
-        for (int py = 0; py < 4; py++) {
-            if (tetromino[currentPiece]->layout[tetromino[currentPiece]->rotate(px, py)] == L'X')
+    for (int pointX = 0; pointX < 4; pointX++)
+        for (int pointY = 0; pointY < 4; pointY++) {
+            if (tetromino[currentPiece]->layout[tetromino[currentPiece]->rotate(pointX, pointY)] == L'X')
                 // Drawing current piece ( n + ASCII code of character 'A') 0 -> A, 1 - > B, ...
-                screenBuffer->screen[(tetromino[currentPiece]->y + py + YPADDING) * screenBuffer->screenWidth + (tetromino[currentPiece]->x + px + XPADDING)] = currentPiece + 65;
-            if (tetromino[nextPiece]->layout[tetromino[nextPiece]->rotate(px, py)] == L'X')
+                screenBuffer->screen[(tetromino[currentPiece]->y + pointY + YPADDING) * screenBuffer->screenWidth + (tetromino[currentPiece]->x + pointX + XPADDING)] = currentPiece + 65;
+            if (tetromino[nextPiece]->layout[tetromino[nextPiece]->rotate(pointX, pointY)] == L'X')
                 // Drawing next piece ( n + ASCII code of character 'A') 0 -> A, 1 - > B, ...
-                screenBuffer->screen[(YPADDING + 3 + py) * screenBuffer->screenWidth + (XPADDING / 2 + px + 3)] = nextPiece + 65;
+                screenBuffer->screen[(YPADDING + 3 + pointY) * screenBuffer->screenWidth + (XPADDING / 2 + pointX + 3)] = nextPiece + 65;
             else
-                screenBuffer->screen[(YPADDING + 3 + py) * screenBuffer->screenWidth + (XPADDING / 2 + px + 3)] = ' ';
+                screenBuffer->screen[(YPADDING + 3 + pointY) * screenBuffer->screenWidth + (XPADDING / 2 + pointX + 3)] = ' ';
 
         }
 
@@ -308,11 +308,11 @@ void Tetris::draw()
         WriteConsoleOutputCharacter(screenBuffer->hConsole, screenBuffer->screen, screenBuffer->screenWidth * screenBuffer->screenHeight, { 0,0 }, &screenBuffer->dwBytesWritten);
         this_thread::sleep_for(400ms);
         for (auto& v : fullLines)
-            for (int px = 1; px < playingField->fieldWidth - 1; px++) {
-                for (int py = v; py > 0; py--)
+            for (int pointX = 1; pointX < playingField->fieldWidth - 1; pointX++) {
+                for (int pointY = v; pointY > 0; pointY--)
                     // clear line, moving lines above one unit down
-                    playingField->pField[py * playingField->fieldWidth + px] = playingField->pField[(py - 1) * playingField->fieldWidth + px];
-                playingField->pField[px] = 0;
+                    playingField->pField[pointY * playingField->fieldWidth + pointX] = playingField->pField[(pointY - 1) * playingField->fieldWidth + pointX];
+                playingField->pField[pointX] = 0;
             }
         fullLines.clear();
     }
