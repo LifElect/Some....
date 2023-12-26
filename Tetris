@@ -1,9 +1,12 @@
 #include <iostream>
+
 using namespace std;
 
 #include <Windows.h>
 #include <thread>
 #include <vector>
+#include <fstream>
+#include <winuser.h>
 
 #define XPADDING 34
 #define YPADDING 5
@@ -196,7 +199,7 @@ void Tetris::processInput()
     // x25 = left arrow key
     // x28 = down arrow key
     for (int signKey = 0; signKey < 4; ++signKey)
-        key[signKey] = (0x8000 & GetAsyncKeyState((unsigned char)("\x27\x25\x28Z"[signKey]))) != 0;
+        key[signKey] = (0x8000 & GetAsyncKeyState((unsigned char)("\x27\x25\x28\x26Z"[signKey]))) != 0;
 
     // Handling input
     Tetromino* currentTetromino = tetromino[currentPiece];
@@ -323,6 +326,12 @@ void Tetris::draw()
 
 int main(void) {
 
+    system("mode con cols=51 lines=31"); // установка размеров окна консоли
+    MoveWindow(GetConsoleWindow(), 50, 50, 680, 500, true);
+
+    ofstream out;
+    out.open("score.txt", ios::app);
+
     Screen* screenBuffer = new Screen(80, 30);
     PlayingField* playingField = new PlayingField(12, 18);
     Tetris* tetrisGame = new Tetris(screenBuffer, playingField, 20);
@@ -339,9 +348,18 @@ int main(void) {
         tetrisGame->draw();
     }
 
+
     CloseHandle(screenBuffer->hConsole);
+    if (out.is_open())
+    {
+        
+        out << "Счет: " << tetrisGame->score << endl;
+    }
+    out.close();
     cout << "Game Over! Score:" << tetrisGame->score << endl;
     system("pause");
 
+    return 0;
+}
     return 0;
 }
